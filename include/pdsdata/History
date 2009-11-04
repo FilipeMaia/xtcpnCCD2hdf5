@@ -1,0 +1,25 @@
+2009-Jul22	weaver	Tag V00-05-01.  Modified RunControl configuration data.
+					Added EVR vectoring field to TimeStamp.
+2009-Jul17	jackp			Added pnCCD support and made strings match enums
+2009-Jul16      cpo                     Put CAMP stuff in DetInfo enums.
+2009-Jul-14	weaver	Tag V00-05-00.	Added run control configuration classes.  Removed
+					Pause/Resume and added Begin/EndCalibCycle transitions.
+					Changed ClockTime default ctor to not zero memory.
+2009-Jul-10     cpo                     Improvements to acqiris configuration classes.
+2009-Jun-01	weaver	Tag V00-04-00.	Tagged Amedeo's changes to xtc/Sequence.
+2009-Apr-16	weaver			Added pulnix directory and its configuration data type.  
+					Added out-of-order damage type.
+2009-Apr-10     cpo                     Change Acqiris waveform() to return
+                                        int16 instead of uint16.  Add method
+                                        to get index of first valid point.
+2009-Mar-31	weaver	Tag V00-03-00.	Interface changes require version change.
+2009-Mar-31	weaver	Tag V00-02-05.	Removed TypeId(unsigned) ctor which ignored versions.  Added TwoDGaussianV1.hh.
+2009-Mar-24     cpo     Tag V00-02-04.  Add xtcreader to new app directory.
+2009-Mar-24     cpo     Tag V00-02-03.  Removed WaveformV1.hh and AcqDataDescV1.* and DataCallback.hh.  
+					Added acqiris bit field locations in DataDescV1.hh.
+2009-Mar-24     cpo     Tag V00-02-01.  Improved acqiris data support.
+2009-Mar-04	weaver	Tag V00-02-00.  Added camera, evr, opal1k data formats.
+
+2009-Feb-13     cpo     Add outofsynch damage bit.
+
+2008-Nov-14     cpo     Tag V00-01-00.  First version to support offline.

@@ -1,18 +1,32 @@
-# You need to change HDF5ROOT to the path where hdf5 is installed. If it's installed under /usr or /sw nothing should be necessary 
+# You need to change HDF5ROOT to the path where hdf5 is installed.
+# If it's installed under /usr or /sw nothing should be necessary
 HDF5ROOT=/usr
 
+# The following is necessary with HDF5 1.8.x, and should be harmless otherwise
+HDF5CFLAGS=-D H5Gcreate_vers=1 -D H5Dcreate_vers=1
+
+# Add any extra include directories here
+INCLUDES=-I${HDF5ROOT}/include -Iinclude -I/sw/include
+
+# Add any extra linker stuff here
+LDFLAGS=-L${HDF5ROOT}/lib -L/sw/lib -lhdf5
+
+# Any other compiler flags go here
+CXXFLAGS=-W -Wall $(INCLUDES) $(HDF5CFLAGS)
+
+OBJS = xtcpnCCD2hdf5.o XtcIterator.o DetInfo.o TypeId.o ProcInfo.o \
+       XtcFileIterator.o Src.o TransitionId.o TimeStamp.o Level.o \
+       Sequence.o ClockTime.o
+
 all: xtcpnCCD2hdf5
-CFLAGS=-std=c99 -Wall -W -Iinclude -I/sw/include
-CXXFLAGS=-Iinclude -I/sw/include -I${HDF5ROOT}/include
-LDFLAGS=-L/sw/lib -L${HDF5ROOT}/lib
-LDLIBS= -lhdf5
-objs = xtcpnCCD2hdf5.o XtcIterator.o DetInfo.o TypeId.o ProcInfo.o XtcFileIterator.o Src.o TransitionId.o TimeStamp.o Level.o Sequence.o ClockTime.o
 
-# $^ corresponds to the left side of the : (xtcpnCCD2hdf5) and $@ to the right side ($objs)
+xtcpnCCD2hdf5: $(OBJS)
+	g++ $^ $(LDFLAGS) -o $@
 
-xtcpnCCD2hdf5: $(objs)
-	g++ $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
-.PHONY: clean
+$(OBJS): %.o : %.cc
+	g++ -c $(CXXFLAGS) $< -o $@
 
 clean:
-	rm -f $(objs) *~ core include/*~ xtcpnCCD2hdf5
+	rm -f $(OBJS) *~ core include/*~ xtcpnCCD2hdf5
+
+.PHONY: clean
